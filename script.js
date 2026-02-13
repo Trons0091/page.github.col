@@ -20,7 +20,7 @@ let geometry = null;
 let points = null;
 
 const image = new Image();
-image.src = "tu_imagen.png"; // ← CAMBIA ESTO
+image.src = "Dandadan.png"; // ← CAMBIA ESTO
 
 image.onload = () => {
 

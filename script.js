@@ -1,6 +1,10 @@
 // import './style.css'
 import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
 
+import { FontLoader } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/FontLoader.js";
+
+import { TextGeometry } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/geometries/TextGeometry.js";
+
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js";
 
 
@@ -90,6 +94,89 @@ material = new THREE.PointsMaterial({
 }
 generateGalaxy();
 
+const textureLoader = new THREE.TextureLoader();
+const centerTexture = textureLoader.load("Dandadan.png");
+
+const centerGeo = new THREE.CircleGeometry(0.7, 64);
+const centerMat = new THREE.MeshBasicMaterial({
+    map: centerTexture,
+    transparent: true
+});
+
+const centerImage = new THREE.Mesh(centerGeo, centerMat);
+scene.add(centerImage);
+
+// FRASES
+const frases = [
+"Te amo","Eres mi reina","Mi corazón es tuyo","No puedo vivir sin ti","Eres mi razón de ser",
+"Mi vida eres tú","Te necesito siempre","Eres mi todo","Mi alma te pertenece","Eres mi inspiración",
+"Te pienso día y noche","Eres mi sueño hecho realidad","Mi felicidad eres tú","Te extraño cada segundo",
+"Eres mi luz en la oscuridad","Mi mundo gira por ti","Te adoro con el alma","Eres mi paz",
+"Mi sonrisa nace de ti","Te llevo en mi corazón","Eres mi destino","Mi vida sin ti no existe",
+"Te quiero más que ayer","Eres mi tesoro","Mi amor por ti es infinito","Eres mi ángel",
+"Te pienso en cada latido","Eres mi alegría","Mi corazón late por ti","Te amo sin medida",
+"Eres mi compañera perfecta","Mi alma se calma contigo","Te necesito como el aire",
+"Eres mi refugio","Mi amor nunca se acaba","Te quiero con locura","Eres mi razón de sonreír",
+"Mi vida eres tú sola","Te amo más que a nada","Eres mi ilusión","Mi corazón es tuyo siempre",
+"Te pienso en silencio","Eres mi fuerza","Mi amor es eterno","Te extraño con el alma",
+"Eres mi estrella","Mi vida se ilumina contigo","Te adoro cada día","Eres mi razón de luchar",
+"Mi corazón suspira por ti","Te amo con pasión","Eres mi melodía","Mi alma canta por ti",
+"Te quiero sin fin","Eres mi regalo de Dios","Mi vida se completa contigo","Te pienso en mis sueños",
+"Eres mi esperanza","Mi amor crece contigo","Te extraño en cada instante","Eres mi alegría infinita",
+"Mi corazón sonríe contigo","Te amo con ternura","Eres mi razón de vivir","Mi alma se entrega a ti",
+"Te quiero con devoción","Eres mi milagro","Mi vida eres tú entera","Te pienso en cada amanecer",
+"Eres mi destino eterno","Mi amor nunca muere","Te extraño cada día","Eres mi razón de existir",
+"Mi corazón se enciende contigo","Te amo con sinceridad","Eres mi refugio seguro",
+"Mi alma descansa contigo","Te quiero con dulzura","Eres mi razón de soñar","Mi vida se llena contigo",
+"Te pienso en cada suspiro","Eres mi alegría pura","Mi corazón vibra contigo","Te amo con entrega",
+"Eres mi razón de amar","Mi alma se une a ti","Te quiero con ternura","Eres mi razón de esperanza",
+"Mi vida eres tú siempre","Te pienso en cada mirada","Eres mi razón de fe","Mi amor es tuyo",
+"Te extraño con pasión","Eres mi razón de calma","Mi corazón se rinde a ti",
+"Te amo con todo mi ser","Eres mi razón de alegría","Mi alma suspira por ti",
+"Te quiero con todo el corazón","Eres mi razón de amor"
+];
+
+const textGroup = new THREE.Group();
+scene.add(textGroup);
+
+const fontLoader = new FontLoader();
+
+fontLoader.load(
+"https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+(font)=>{
+
+frases.forEach((texto,i)=>{
+
+const geo = new TextGeometry(texto,{
+    font:font,
+    size:0.12,
+    height:0.01
+});
+
+const mat = new THREE.MeshBasicMaterial({
+    color:0xffffff,
+    transparent:true,
+    opacity:0.9
+});
+
+const mesh = new THREE.Mesh(geo,mat);
+
+const angle = (i/frases.length)*Math.PI*2;
+const radius = 2.5;
+
+mesh.position.x = Math.cos(angle)*radius;
+mesh.position.z = Math.sin(angle)*radius;
+mesh.position.y = (Math.random()-0.5)*1.5;
+
+mesh.lookAt(0,0,0);
+
+textGroup.add(mesh);
+
+});
+});
+
+
+
 /**
  * Test cube
  */
@@ -144,24 +231,24 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
+
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
-    // Update controls
     controls.update()
 
-    camera.position.x = Math.cos(elapsedTime*0.05);
-    camera.position.z = Math.sin(elapsedTime*0.05);
+    camera.position.x = Math.cos(elapsedTime*0.05)*4;
+    camera.position.z = Math.sin(elapsedTime*0.05)*4;
     camera.lookAt(0,0,0);
 
-    // Render
+    textGroup.rotation.y += 0.002;
+
     renderer.render(scene, camera)
 
-    // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }
 
-tick()
+tick();

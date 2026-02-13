@@ -1,12 +1,8 @@
-// Three.js base
-// Three core
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.module.js";
+import * as THREE from "https://unpkg.com/three@0.132.2/build/three.module.js";
 
-// Addons
-import { FontLoader } from "https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/geometries/TextGeometry.js";
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/controls/OrbitControls.js";
-
+import { OrbitControls } from "https://unpkg.com/three@0.132.2/examples/jsm/controls/OrbitControls.js";
+import { FontLoader } from "https://unpkg.com/three@0.132.2/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "https://unpkg.com/three@0.132.2/examples/jsm/geometries/TextGeometry.js";
 
 // import { Geometry, TetrahedronGeometry } from 'three'
 
@@ -252,6 +248,7 @@ const tick = () =>
 }
 
 tick();
+
 
 
 

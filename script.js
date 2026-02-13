@@ -1,9 +1,8 @@
 // import './style.css'
 import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
 
-import { FontLoader } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/FontLoader.js";
-
-import { TextGeometry } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/geometries/TextGeometry.js";
+import { FontLoader } from "https://threejs.org/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "https://threejs.org/examples/jsm/geometries/TextGeometry.js";
 
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js";
 
@@ -252,3 +251,4 @@ const tick = () =>
 }
 
 tick();
+

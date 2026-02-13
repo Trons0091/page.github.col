@@ -3,8 +3,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.m
 
 import { FontLoader } from "https://threejs.org/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "https://threejs.org/examples/jsm/geometries/TextGeometry.js";
-import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";;
-
+import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 
 // import { Geometry, TetrahedronGeometry } from 'three'
 
@@ -250,6 +249,7 @@ const tick = () =>
 }
 
 tick();
+
 
 
 

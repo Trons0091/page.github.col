@@ -19,11 +19,12 @@ let material = null;
 let geometry = null;
 let points = null;
 
+let galaxyScale = 1.0; // ← factor inicial
+
 const image = new Image();
 image.src = "Dandadan.png"; // ← CAMBIA ESTO
 
-image.onload = () => {
-
+function generateGalaxy() {
     if(points){
         geometry.dispose();
         material.dispose();
@@ -65,9 +66,9 @@ image.onload = () => {
     pixels.forEach((p,i)=>{
         const i3=i*3;
 
-        positions[i3]   = (p.x-image.width/2)*0.01;
-        positions[i3+1] = -(p.y-image.height/2)*0.01;
-        positions[i3+2] = (Math.random()-0.5)*0.5;
+        positions[i3]   = (p.x-image.width/2)*0.01*galaxyScale;
+        positions[i3+1] = -(p.y-image.height/2)*0.01*galaxyScale;
+        positions[i3+2] = (Math.random()-0.5)*0.5*galaxyScale;
 
         colors[i3]   = p.r/255;
         colors[i3+1] = p.g/255;
@@ -79,7 +80,7 @@ image.onload = () => {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors,3));
 
     material = new THREE.PointsMaterial({
-        size:0.02,
+        size:0.02*galaxyScale,
         sizeAttenuation:true,
         vertexColors:true,
         blending:THREE.AdditiveBlending,
@@ -88,7 +89,24 @@ image.onload = () => {
 
     points = new THREE.Points(geometry,material);
     scene.add(points);
-};
+}
+
+image.onload = generateGalaxy;
+
+/* ======================
+   CONTROL DE ESCALA
+====================== */
+
+window.addEventListener("keydown", (event) => {
+    if(event.key === "+"){
+        galaxyScale *= 1.2; // aumenta
+        generateGalaxy();
+    }
+    if(event.key === "-"){
+        galaxyScale *= 0.8; // disminuye
+        generateGalaxy();
+    }
+});
 
 /* ======================
    SIZES
@@ -150,4 +168,3 @@ const tick = ()=>{
 };
 
 tick();
-
